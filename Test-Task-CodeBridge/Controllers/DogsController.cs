@@ -13,17 +13,28 @@ namespace Test_Task_CodeBridge.Controllers
     public class DogsController : Controller
     {
         private readonly IDogRepository _dogRepository;
-        public DogsController(IServiceProvider serviceProvider)
+        private readonly IDataSortService _sortService;
+        public DogsController(IServiceProvider serviceProvider,
+                              IDataSortService sortService)
         {
             _dogRepository =new DogRepository(serviceProvider);
+            _sortService = sortService;
         }
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery]SortViewModel sortModel,[FromQuery]IndexViewModel indexModel)
         {
-            return Ok(await _dogRepository.GetAllDogsAsync());
+            if (ModelState.IsValid)
+            {
+                var dogs = _dogRepository.GetAllDogs();
+                var paginatedDogs = await _sortService.GetPaginatedDogs(sortModel, indexModel, dogs);
+                return Ok(paginatedDogs);
+            }
+            else
+            {
+                return BadRequest("Invalid request");
+            }
         }
-
         [HttpPost]
         public async Task<IActionResult> CreateDog(DogViewModel model)
         {
@@ -32,9 +43,9 @@ namespace Test_Task_CodeBridge.Controllers
                 var result = await _dogRepository.CreateDogAsync(model);
                 if (result)
                 {
-                    return BadRequest("Failed");
+                    return Ok("Success");
                 }
-                return Ok("Success");
+                return BadRequest(new InvalidOperationException().Message);
             }
             else
             {
@@ -42,5 +53,6 @@ namespace Test_Task_CodeBridge.Controllers
             }
 
         }
+
     }
 }

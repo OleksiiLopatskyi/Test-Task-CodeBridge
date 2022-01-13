@@ -32,6 +32,7 @@ namespace Test_Task_CodeBridge
             string connection = Configuration.GetConnectionString("DogsDatabase");
             services.AddDbContext<DogsContext>(i=>i.UseSqlServer(connection));
             services.AddTransient<IDogRepository, DogRepository>();
+            services.AddTransient<IDataSortService, DataSortService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
