@@ -1,15 +1,18 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Test_Task_CodeBridge.Models;
 using Test_Task_CodeBridge.Models.Context;
+using Test_Task_CodeBridge.ViewModels;
 
 namespace Test_Task_CodeBridge.Services
 {
     public class DogRepository : IDogRepository
     {
-        public IServiceProvider _serviceProvider { get; set; }
+        public IServiceProvider _serviceProvider { get; }
+
         private readonly DogsContext _context;
         public DogRepository(IServiceProvider serviceProvider)
         {
@@ -17,9 +20,27 @@ namespace Test_Task_CodeBridge.Services
             _context = (DogsContext)_serviceProvider.GetService(typeof(DogsContext));
         }
 
-        public async Task<IEnumerable<Dog>> GetAllDogs()
+        public async Task<IEnumerable<Dog>> GetAllDogsAsync() => await _context.Dogs.ToListAsync();
+        public async Task<bool> CreateDogAsync(DogViewModel model)
         {
-            return null;
+            var dog = new Dog
+            {
+                Name=model.Name,
+                Color=model.Color,
+                Tail_Length=model.Tail_Length,
+                Weight=model.Weight
+            };
+            try
+            {
+                await _context.Dogs.AddAsync(dog);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
     }
 }

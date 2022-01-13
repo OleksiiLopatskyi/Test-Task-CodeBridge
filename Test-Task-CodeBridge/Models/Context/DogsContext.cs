@@ -8,6 +8,7 @@ namespace Test_Task_CodeBridge.Models.Context
 {
     public class DogsContext:DbContext
     {
+        public DbSet<Dog> Dogs { get; set; }
         public DogsContext(DbContextOptions<DogsContext>options):base(options)
         {
             Database.EnsureCreated();

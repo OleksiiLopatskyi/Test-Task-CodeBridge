@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Test_Task_CodeBridge.ViewModels.Validation
 {
-    public class Dog:ValidationAttribute
+    public class DogBody:ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            return base.IsValid(value, validationContext);
+            double val = (double)value;
+            if (val <= 0) return new ValidationResult("Tail value is a negative number or is not a number.");
+            return null;
         }
     }
 }
