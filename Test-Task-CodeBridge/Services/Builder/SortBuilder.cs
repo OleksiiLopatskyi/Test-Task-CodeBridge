@@ -15,7 +15,7 @@ namespace Test_Task_CodeBridge.Services.Builder
 
         public ISortBuilder DefineOrder(string orderBy)
         {
-            this.orderBy = orderBy == null ? string.Empty : "desc";
+            this.orderBy = orderBy;
             return this;
         }
 

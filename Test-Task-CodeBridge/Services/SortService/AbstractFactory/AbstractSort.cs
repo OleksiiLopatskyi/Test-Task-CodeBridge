@@ -15,7 +15,7 @@ namespace Test_Task_CodeBridge.Services.SortService.AbstractFactory
         public abstract IQueryable<Dog> Sort(IQueryable<Dog> unsortedList); 
         private string ValidateInput(string value)
         {
-            value = value == null ? string.Empty : value;
+            value = value == null ? string.Empty : "desc";
             return value;
         }
     }

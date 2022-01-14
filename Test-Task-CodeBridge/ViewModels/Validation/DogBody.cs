@@ -11,7 +11,7 @@ namespace Test_Task_CodeBridge.ViewModels.Validation
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             double val = (double)value;
-            if (val <= 0) return new ValidationResult("Tail value is a negative number or is not a number.");
+            if (val <= 0) return new ValidationResult("Value is a negative number or zero or is not a number.");
             return null;
         }
     }
