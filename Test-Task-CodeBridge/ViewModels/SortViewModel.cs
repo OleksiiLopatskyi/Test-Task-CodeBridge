@@ -8,7 +8,9 @@ namespace Test_Task_CodeBridge.ViewModels
 {
     public class SortViewModel
     {
+        [SortType]
         public string Property { get; set; }
+        [OrderType]
         public string OrderBy { get; set; }
     }
 }
