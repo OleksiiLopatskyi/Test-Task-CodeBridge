@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Test_Task_CodeBridge.Services;
+using Test_Task_CodeBridge.Services.Repositories;
+using Test_Task_CodeBridge.Services.SortService;
 using Test_Task_CodeBridge.ViewModels;
 
 namespace Test_Task_CodeBridge.Controllers
@@ -17,7 +18,7 @@ namespace Test_Task_CodeBridge.Controllers
         public DogsController(IServiceProvider serviceProvider,
                               IDataSortService sortService)
         {
-            _dogRepository =new DogRepository(serviceProvider);
+            _dogRepository = new DogRepository(serviceProvider);
             _sortService = sortService;
         }
         [HttpGet]

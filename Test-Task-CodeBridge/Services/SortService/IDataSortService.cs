@@ -6,7 +6,7 @@ using Test_Task_CodeBridge.Models;
 using Test_Task_CodeBridge.Services.Pagination;
 using Test_Task_CodeBridge.ViewModels;
 
-namespace Test_Task_CodeBridge.Services
+namespace Test_Task_CodeBridge.Services.SortService
 {
     public interface IDataSortService
     {

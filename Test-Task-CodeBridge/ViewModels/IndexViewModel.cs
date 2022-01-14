@@ -7,7 +7,7 @@ namespace Test_Task_CodeBridge.ViewModels
 {
     public class IndexViewModel:SortViewModel
     {
-        public int Page { get; set; }
+        public int PageNumber { get; set; }
         public int PageSize { get; set; }
     }
 }

@@ -5,9 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Test_Task_CodeBridge.Models;
 using Test_Task_CodeBridge.Models.Context;
+using Test_Task_CodeBridge.Services.Repositories;
 using Test_Task_CodeBridge.ViewModels;
 
-namespace Test_Task_CodeBridge.Services
+namespace Test_Task_CodeBridge.Services.Repositories
 {
     public class DogRepository : IDogRepository
     {
