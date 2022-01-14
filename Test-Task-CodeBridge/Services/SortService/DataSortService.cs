@@ -5,6 +5,8 @@ using Test_Task_CodeBridge.Services.Pagination;
 using System.Threading.Tasks;
 using Test_Task_CodeBridge.Models;
 using Test_Task_CodeBridge.ViewModels;
+using Test_Task_CodeBridge.Services.SortService.AbstractFactory;
+using Test_Task_CodeBridge.Services.Builder;
 
 namespace Test_Task_CodeBridge.Services.SortService
 {
@@ -19,27 +21,11 @@ namespace Test_Task_CodeBridge.Services.SortService
 
         public IQueryable<Dog> GetSortedDogs(SortViewModel model,IQueryable<Dog>dogList)
         {
-            ISortable selectedSortType = null;
-
-            if (model.Property == null) selectedSortType=new NameSort(model.OrderBy);
-
-            model.Property = model.Property.ToLower();
-
-            switch (model.Property)
-            {
-                case "name":
-                    selectedSortType = new NameSort(model.OrderBy);
-                    break;
-                case "color":
-                    selectedSortType = new ColorSort(model.OrderBy);
-                    break;
-                case "tail_height":
-                    selectedSortType = new TailHeightSort(model.OrderBy);
-                    break;
-                case "weight":
-                    selectedSortType = new TailHeightSort(model.OrderBy);
-                    break;
-            }
+            AbstractSort selectedSortType = new SortBuilder()
+                                                .DefineOrder(model.OrderBy)
+                                                .DefineProperty(model.Property)
+                                                .Build();
+            
             return selectedSortType.Sort(dogList);
         }
     }

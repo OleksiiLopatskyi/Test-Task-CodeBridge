@@ -10,7 +10,7 @@ namespace Test_Task_CodeBridge.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
-        public double Tail_Length { get; set; }
+        public double Tail_Height { get; set; }
         public double Weight { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace Test_Task_CodeBridge.Models.Context
                 Id = Guid.NewGuid(),
                 Name = "Neo",
                 Color = "Red & amber",
-                Tail_Length = 22,
+                Tail_Height = 22,
                 Weight = 32
             };
             Dog jessy = new Dog
@@ -29,7 +29,7 @@ namespace Test_Task_CodeBridge.Models.Context
                 Id = Guid.NewGuid(),
                 Name = "Jessy",
                 Color = "black & white",
-                Tail_Length = 7,
+                Tail_Height = 7,
                 Weight = 14
             };
 

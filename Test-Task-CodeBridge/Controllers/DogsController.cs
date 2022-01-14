@@ -29,12 +29,10 @@ namespace Test_Task_CodeBridge.Controllers
             {
                 var dogs = _dogRepository.GetAllDogs();
                 var paginatedDogs = await _sortService.GetPaginatedDogs(sortModel, indexModel, dogs);
-                return Ok(paginatedDogs);
+
+                return indexModel.PageNumber > paginatedDogs.TotalPages?BadRequest("Invalid page number"):Ok(paginatedDogs);
             }
-            else
-            {
-                return BadRequest("Invalid request");
-            }
+            return BadRequest("Check input fields");
         }
         [HttpPost]
         public async Task<IActionResult> CreateDog(DogViewModel model)

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Test_Task_CodeBridge.Models;
 using Test_Task_CodeBridge.Models.Context;
+using Test_Task_CodeBridge.Services.Builder;
 using Test_Task_CodeBridge.Services.Repositories;
 using Test_Task_CodeBridge.ViewModels;
 
@@ -24,13 +25,17 @@ namespace Test_Task_CodeBridge.Services.Repositories
         public IQueryable<Dog> GetAllDogs() => _context.Dogs;
         public async Task<bool> CreateDogAsync(DogViewModel model)
         {
-            var dog = new Dog
-            {
-                Name=model.Name,
-                Color=model.Color,
-                Tail_Length=model.Tail_Length,
-                Weight=model.Weight
-            };
+            Dog dog = new DogBuilder().
+                SetName(model.Name).
+                SetColor(model.Color).
+                SetTailHeight(model.Tail_Height).
+                SetWeight(model.Weight).
+                Build();
+
+            return await SaveDogAsync(dog); 
+        }
+        public async Task<bool> SaveDogAsync(Dog dog)
+        {
             try
             {
                 await _context.Dogs.AddAsync(dog);
@@ -41,7 +46,7 @@ namespace Test_Task_CodeBridge.Services.Repositories
             {
                 return false;
             }
-
+          
         }
     }
 }

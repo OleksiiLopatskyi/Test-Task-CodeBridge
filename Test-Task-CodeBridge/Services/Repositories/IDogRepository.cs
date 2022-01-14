@@ -12,5 +12,6 @@ namespace Test_Task_CodeBridge.Services.Repositories
         IServiceProvider _serviceProvider { get;}
         IQueryable<Dog> GetAllDogs();
         Task<bool> CreateDogAsync(DogViewModel model);
+        Task<bool> SaveDogAsync(Dog dog);
     }
 }

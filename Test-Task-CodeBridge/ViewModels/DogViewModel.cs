@@ -21,7 +21,7 @@ namespace Test_Task_CodeBridge.ViewModels
 
         [DogBody]
         [Required]
-        public double Tail_Length { get; set; }
+        public double Tail_Height { get; set; }
 
         [DogBody]
         [Required]
