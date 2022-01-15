@@ -9,8 +9,9 @@ namespace Test_Task_CodeBridge.Services.Builder
     public class SortBuilder : ISortBuilder
     {
         AbstractSort sort;
+
         private string orderBy;
-        public SortBuilder()=>new NameSort(string.Empty);
+        public SortBuilder()=>new NameSort(orderBy);
         public AbstractSort Build() => sort;
 
         public ISortBuilder DefineOrder(string orderBy)
