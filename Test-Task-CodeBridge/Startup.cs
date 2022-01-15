@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,16 +36,28 @@ namespace Test_Task_CodeBridge
             services.AddDbContext<DogsContext>(i=>i.UseSqlServer(connection));
             services.AddTransient<IDogRepository, DogRepository>();
             services.AddTransient<IDataSortService, DataSortService>();
+
+            services.AddOptions();
+            services.AddMemoryCache();
+
+            services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
+            services.Configure<IpRateLimitPolicies>(Configuration.GetSection("IpRateLimitPolicies"));
+
+            services.AddInMemoryRateLimiting();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Test_Task_CodeBridge", Version = "v1" });
             });
+
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseIpRateLimiting();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

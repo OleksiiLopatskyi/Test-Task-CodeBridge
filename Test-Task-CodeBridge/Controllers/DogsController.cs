@@ -10,7 +10,6 @@ using Test_Task_CodeBridge.ViewModels;
 namespace Test_Task_CodeBridge.Controllers
 {
     [ApiController]
-    [Route("api")]
     public class DogsController : Controller
     {
         private readonly IDogRepository _dogRepository;
@@ -22,7 +21,7 @@ namespace Test_Task_CodeBridge.Controllers
             _sortService = sortService;
         }
         [HttpGet]
-        [Route("[action]")]
+        [Route("Dogs")]
         public async Task<IActionResult> Index([FromQuery]SortViewModel sortModel,[FromQuery]IndexViewModel indexModel)
         {
             if (ModelState.IsValid)
@@ -35,6 +34,7 @@ namespace Test_Task_CodeBridge.Controllers
             return BadRequest("Check input fields");
         }
         [HttpPost]
+        [Route("dog")]
         public async Task<IActionResult> CreateDog(DogViewModel model)
         {
             if (ModelState.IsValid)
@@ -51,6 +51,13 @@ namespace Test_Task_CodeBridge.Controllers
                 return BadRequest(ModelState);
             }
 
+        }
+
+        [HttpGet]
+        [Route("ping")]
+        public IActionResult ShowPing()
+        {
+            return Ok("Dogs house service. Version 1.0.1");
         }
 
     }
