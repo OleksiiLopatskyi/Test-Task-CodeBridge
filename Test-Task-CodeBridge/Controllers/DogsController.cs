@@ -26,8 +26,8 @@ namespace Test_Task_CodeBridge.Controllers
         {
             if (ModelState.IsValid)
             {
-                var dogs = _dogRepository.GetAllDogs();
-                var paginatedDogs = await _sortService.GetPaginatedDogs(sortModel, indexModel, dogs);
+                var dogs = await _dogRepository.GetAllDogs();
+                var paginatedDogs = await _sortService.GetPaginatedDogs(sortModel, indexModel, dogs.AsQueryable());
 
                 return indexModel.PageNumber > paginatedDogs.TotalPages?BadRequest("Invalid page number"):Ok(paginatedDogs);
             }

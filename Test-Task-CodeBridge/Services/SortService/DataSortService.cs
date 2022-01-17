@@ -7,6 +7,7 @@ using Test_Task_CodeBridge.Models;
 using Test_Task_CodeBridge.ViewModels;
 using Test_Task_CodeBridge.Services.SortService.AbstractFactory;
 using Test_Task_CodeBridge.Services.Builder;
+using Microsoft.EntityFrameworkCore;
 
 namespace Test_Task_CodeBridge.Services.SortService
 {
@@ -14,8 +15,8 @@ namespace Test_Task_CodeBridge.Services.SortService
     {
         public async Task<PaginatedList<Dog>> GetPaginatedDogs(SortViewModel sortModel, IndexViewModel indexModel,IQueryable<Dog>dogList)
         {
-            var sortedDogs = GetSortedDogs(sortModel, dogList);
-            var paginatedDogs = await PaginatedList<Dog>.CreateAsync(sortedDogs, indexModel.PageNumber, indexModel.PageSize);
+            var sortedDogs = await GetSortedDogs(sortModel, dogList).ToListAsync();
+            var paginatedDogs = await PaginatedList<Dog>.CreateAsync(sortedDogs.AsQueryable(), indexModel.PageNumber, indexModel.PageSize);
             return paginatedDogs;
         }
 

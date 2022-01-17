@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using Moq;
 using Test_Task_CodeBridge.Services.Builder;
 
-namespace DogsApiTests
+namespace DogsApiTests.Builder
 {
     public class DogBuilderTest
     {

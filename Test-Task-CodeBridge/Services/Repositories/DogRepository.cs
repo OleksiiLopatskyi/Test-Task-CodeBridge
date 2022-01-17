@@ -22,7 +22,7 @@ namespace Test_Task_CodeBridge.Services.Repositories
             _context = (DogsContext)_serviceProvider.GetService(typeof(DogsContext));
         }
 
-        public IQueryable<Dog> GetAllDogs() => _context.Dogs;
+        public async Task<List<Dog>> GetAllDogs() =>  await _context.Dogs.ToListAsync();
         public async Task<bool> CreateDogAsync(DogViewModel model)
         {
             Dog dog = new DogBuilder().

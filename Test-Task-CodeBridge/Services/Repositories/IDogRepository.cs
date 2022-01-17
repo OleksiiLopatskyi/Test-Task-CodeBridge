@@ -10,7 +10,7 @@ namespace Test_Task_CodeBridge.Services.Repositories
     public interface IDogRepository
     {
         IServiceProvider _serviceProvider { get;}
-        IQueryable<Dog> GetAllDogs();
+        Task<List<Dog>> GetAllDogs();
         Task<bool> CreateDogAsync(DogViewModel model);
         Task<bool> SaveDogAsync(Dog dog);
     }

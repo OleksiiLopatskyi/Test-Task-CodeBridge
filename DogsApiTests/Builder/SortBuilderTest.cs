@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Test_Task_CodeBridge.Services.SortService.AbstractFactory;
 using Test_Task_CodeBridge.Services.Builder;
 
-namespace DogsApiTests
+namespace DogsApiTests.Builder
 {
    public class SortBuilderTest
     {
